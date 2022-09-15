@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image} from "react-native";
+import {StyleSheet, View, Text, Image, TouchableOpacity} from "react-native";
 import screen1 from '../assets/Group.png'
 import CustomButton from "../components/shared/CustomButton/CustomButton";
 
@@ -7,7 +7,7 @@ const ScreenOne = ({navigation}) => {
     React.useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <Text style={{paddingHorizontal: 10}}>skip</Text>
+                <TouchableOpacity style={{paddingHorizontal: 10}} onPress={() => navigation.navigate('DrawerScreen')}><Text>skip</Text></TouchableOpacity>
             ),
         });
     }, []);
@@ -26,7 +26,7 @@ const ScreenOne = ({navigation}) => {
                     their healthcare providers to communicate and collaborate, bringing back a multidisciplinary
                     approach to your health.</Text>
             </View>
-            <CustomButton navigation={navigation} title={'Next'} to={'DrawerScreen'}/>
+            <CustomButton navigation={navigation} title={'Next'} to={'ScreenTwo'}/>
         </View>
     );
 };
