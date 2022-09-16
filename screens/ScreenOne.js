@@ -6,6 +6,7 @@ import CustomButton from "../components/shared/CustomButton/CustomButton";
 const ScreenOne = ({navigation}) => {
     React.useLayoutEffect(() => {
         navigation.setOptions({
+            headerShadowVisible: false,
             headerRight: () => (
                 <TouchableOpacity style={{paddingHorizontal: 10}} onPress={() => navigation.navigate('DrawerScreen')}><Text>skip</Text></TouchableOpacity>
             ),

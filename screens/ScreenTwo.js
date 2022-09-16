@@ -1,9 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from "react-native";
+import {StyleSheet, Text, View, Image, TouchableOpacity} from "react-native";
 import CustomButton from "../components/shared/CustomButton/CustomButton";
 
 const ScreenTwo = ({navigation}) => {
-
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerShadowVisible: false,
+        });
+    }, []);
     return (
         <View style={styles.container}>
             <View>
@@ -20,7 +24,7 @@ const ScreenTwo = ({navigation}) => {
                 <Text style={styles.paragraph}>Link Me provides Australian Healthcare clients a central platform to
                     store and use your healthcare information.</Text>
             </View>
-            <CustomButton navigation={navigation} title={'Get Started'} to={'ScreenOne'}/>
+            <CustomButton navigation={navigation} title={'Get Started'} to={'Login'}/>
         </View>
     );
 };
