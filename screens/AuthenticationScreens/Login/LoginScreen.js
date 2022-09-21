@@ -14,7 +14,7 @@ const loginValidationSchema = yup.object().shape({
         .min(8, ({min}) => `Password must be at least ${min} characters`)
         .required('Password is required'),
 })
-const ScreenTwo = ({navigation}) => {
+const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     React.useLayoutEffect(() => {
@@ -63,7 +63,9 @@ const ScreenTwo = ({navigation}) => {
                         {(errors.password && touched.password) &&
                             <Text style={styles.errorText}>{errors.password}</Text>
                         }
-                        <Text style={styles.forgotPassword}>Forgot your password?</Text>
+                        <Text style={styles.forgotPassword}
+                              onPress={() => navigation.navigate('ForgotPassword')}
+                        >Forgot your password?</Text>
                         <TouchableOpacity
                             onPress={handleSubmit}
                             style={styles.button}
@@ -78,7 +80,7 @@ const ScreenTwo = ({navigation}) => {
     );
 };
 
-export default ScreenTwo;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
     container: {
