@@ -22,7 +22,7 @@ const LoginScreen = ({navigation}) => {
             headerShadowVisible: false,
             headerRight: () => (
                 <TouchableOpacity style={{paddingHorizontal: 10}}
-                                  onPress={() => navigation.navigate('DrawerScreen')}><Text>Sign
+                                  onPress={() => navigation.navigate('chooseUserTypeDuringRegister')}><Text>Sign
                     Up</Text></TouchableOpacity>
             ),
         });

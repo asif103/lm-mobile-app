@@ -5,6 +5,8 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ScreenTwo from "./ScreenTwo";
 import LoginScreen from "./AuthenticationScreens/Login/LoginScreen";
 import ForgotPasswordScreen from "./AuthenticationScreens/ForgotPassword/ForgotPasswordScreen";
+import ResetPasswordScreen from "./AuthenticationScreens/ResetPassword/ResetPasswordScreen";
+import ChooseUserScreen from "./AuthenticationScreens/Register/ChooseUserScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -16,6 +18,8 @@ const StackMenu = () => {
             <Stack.Screen name="ScreenTwo" component={ScreenTwo} options={{ title: "" }} />
             <Stack.Screen name="Login" component={LoginScreen} options={{ title: "" }} />
             <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ title: "" }} />
+            <Stack.Screen name="resetPassword" component={ResetPasswordScreen} options={{ title: "" }} />
+            <Stack.Screen name="chooseUserTypeDuringRegister" component={ChooseUserScreen} options={{ title: "" }} />
             <Stack.Screen name="DrawerScreen" component={DrawerMenu}/>
         </Stack.Navigator>
     );

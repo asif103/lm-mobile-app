@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, TouchableOpacity, TextInput, Pressable, Modal, A
 import {Formik} from 'formik'
 import * as yup from 'yup'
 import forgotPassword from '../../../assets/gifs/forgot_password.gif'
+import CustomModal from "../../../components/shared/CustomModal/CustomModal";
 
 
 const loginValidationSchema = yup.object().shape({
@@ -31,33 +32,14 @@ const ForgotPasswordScreen = ({navigation}) => {
     }, []);
     return (
         <View style={styles.container}>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Image
-                            style={styles.forgotPasswordImage}
-                            source={forgotPassword}
-                        />
-                        <Text style={styles.modalText}>A link has been sent to the Link Me registered
-                            email address with instructions for resetting your
-                            password.</Text>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.buttonText}>OK</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Modal>
+            <CustomModal
+                navigation={navigation}
+                to={'resetPassword'}
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                image={forgotPassword}
+                text={'A link has been sent to the Link Me registered email address with instructions for resetting your password.'}
+            />
             <Text style={styles.title}>Forgot your password?</Text>
             <Text style={styles.subtitle}>No worries! Enter your email address and a recovery link will be sent to your
                 email shortly.</Text>
@@ -110,9 +92,9 @@ const styles = StyleSheet.create({
     errorText: {
         color: "red"
     },
-    forgotPasswordImage:{
-        maxWidth:150,
-        height:150
+    forgotPasswordImage: {
+        maxWidth: 150,
+        height: 150
     },
     button: {
         backgroundColor: "#77ACA2",
@@ -120,7 +102,7 @@ const styles = StyleSheet.create({
         width: "90%",
         marginBottom: 20,
         borderRadius: 9,
-        marginTop:30
+        marginTop: 30
     },
     buttonText: {
         color: "#ffffff",
@@ -132,15 +114,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 17,
         lineHeight: 21,
-        paddingTop:20
+        paddingTop: 20
     },
     subtitle: {
         fontWeight: "300",
         fontSize: 13,
         color: "#8F8F8F",
-        paddingHorizontal:35,
-        textAlign:"center",
-        paddingBottom:20
+        paddingHorizontal: 35,
+        textAlign: "center",
+        paddingBottom: 20
     },
     input: {
         height: 50,
@@ -175,7 +157,7 @@ const styles = StyleSheet.create({
         marginTop: 22,
     },
     modalView: {
-        width:"90%",
+        width: "90%",
         margin: 20,
         backgroundColor: "white",
         borderRadius: 10,
