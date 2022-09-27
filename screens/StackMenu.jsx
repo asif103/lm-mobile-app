@@ -7,6 +7,7 @@ import LoginScreen from "./AuthenticationScreens/Login/LoginScreen";
 import ForgotPasswordScreen from "./AuthenticationScreens/ForgotPassword/ForgotPasswordScreen";
 import ResetPasswordScreen from "./AuthenticationScreens/ResetPassword/ResetPasswordScreen";
 import ChooseUserScreen from "./AuthenticationScreens/Register/ChooseUserScreen";
+import RegisterFormScreen from "./AuthenticationScreens/Register/RegisterFormScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -20,6 +21,7 @@ const StackMenu = () => {
             <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ title: "" }} />
             <Stack.Screen name="resetPassword" component={ResetPasswordScreen} options={{ title: "" }} />
             <Stack.Screen name="chooseUserTypeDuringRegister" component={ChooseUserScreen} options={{ title: "" }} />
+            <Stack.Screen name="Register" component={RegisterFormScreen} options={{ title: "" }} />
             <Stack.Screen name="DrawerScreen" component={DrawerMenu}/>
         </Stack.Navigator>
     );

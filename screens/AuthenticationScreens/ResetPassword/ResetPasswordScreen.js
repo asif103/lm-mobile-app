@@ -58,7 +58,7 @@ const ResetPasswordScreen = ({navigation}) => {
                                 }
                                 <TextInput
                                     name="passwordConfirmation"
-                                    placeholder="passwordConfirmation"
+                                    placeholder="Confirm Password"
                                     style={
                                         (errors.password && touched.password) ? styles.errorInput : styles.input}
                                     onChangeText={handleChange('passwordConfirmation')}
