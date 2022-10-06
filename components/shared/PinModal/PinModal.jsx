@@ -1,6 +1,8 @@
 import {Alert, Animated, Image, Modal, SafeAreaView, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import imageSource from '../../../assets/gifs/forgot_password.gif'
+import verificationSuccessful from '../../../assets/gifs/success_password_change.gif'
+import verificationFailed from '../../../assets/gifs/verification_failed.gif'
 
 import {
     CodeField,
@@ -43,6 +45,8 @@ const animateCell = ({hasValue, index, isFocused}) => {
 
 const PinModal = ({navigation, modalVisible, setModalVisible, text, to}) => {
     const [value, setValue] = useState('');
+    const [pinSubmitSuccess, setPinSubmitSuccess] = useState(false)
+    const [pinSubmitFailed, setPinSubmitFailed] = useState(false)
     const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
         value,
@@ -52,6 +56,19 @@ const PinModal = ({navigation, modalVisible, setModalVisible, text, to}) => {
         console.log('pressed')
         /*setModalVisible(!modalVisible)
         navigation.navigate(to)*/
+    }
+    const makePinSubmitSuccess =()=>{
+        setPinSubmitSuccess(true)
+        setPinSubmitFailed(false)
+    }
+    const makePinSubmitFailed =()=>{
+        setPinSubmitSuccess(false)
+        setPinSubmitFailed(true)
+    }
+    const makePinSubmitFalse =()=>{
+        setPinSubmitSuccess(false)
+        setPinSubmitFailed(false)
+        setValue('')
     }
 
     const renderCell = ({index, symbol, isFocused}) => {
@@ -108,26 +125,66 @@ const PinModal = ({navigation, modalVisible, setModalVisible, text, to}) => {
         >
             <View style={styles.root}>
                 <View style={styles.modalView}>
-                    <Image style={styles.icon} source={imageSource}/>
-                    <Text style={styles.subTitle}>
-                        A verification email has been sent to
-                        your registered email address.
-                    </Text>
+                    {
+                        (!pinSubmitSuccess && !pinSubmitFailed) &&
 
-                    <CodeField
-                        ref={ref}
-                        {...props}
-                        value={value}
-                        onChangeText={setValue}
-                        cellCount={CELL_COUNT}
-                        rootStyle={styles.codeFieldRoot}
-                        keyboardType="number-pad"
-                        textContentType="oneTimeCode"
-                        renderCell={renderCell}
-                    />
-                    <View style={styles.nextButton} onTouchStart={modalClosePressed}>
-                        <Text style={styles.nextButtonText}>Verify</Text>
-                    </View>
+                    <>
+                        <Image style={styles.icon} source={imageSource}/>
+                        <Text style={styles.subTitle}>
+                            A verification email has been sent to
+                            your registered email address.
+                        </Text>
+
+                        <CodeField
+                            ref={ref}
+                            {...props}
+                            value={value}
+                            onChangeText={setValue}
+                            cellCount={CELL_COUNT}
+                            rootStyle={styles.codeFieldRoot}
+                            keyboardType="number-pad"
+                            textContentType="oneTimeCode"
+                            renderCell={renderCell}
+                        />
+                        <View style={styles.nextButton}
+                              // onTouchStart={modalClosePressed}
+                              onTouchStart={makePinSubmitSuccess}
+                        >
+                            <Text style={styles.nextButtonText}>Verify</Text>
+                        </View>
+                    </>
+                    }
+                    {
+                        (pinSubmitSuccess && !pinSubmitFailed) &&
+
+                        <>
+                            <Image style={styles.icon} source={verificationSuccessful}/>
+                            <Text style={styles.subTitle}>
+                                Verified!
+                            </Text>
+
+
+                            <View style={styles.nextButton}
+                                  // onTouchStart={modalClosePressed}
+                                  onTouchStart={makePinSubmitFailed}
+                            >
+                                <Text style={styles.nextButtonText}>Done</Text>
+                            </View>
+                        </>
+                    }
+                    {
+                        (!pinSubmitSuccess && pinSubmitFailed) &&
+
+                        <>
+                            <Image style={styles.icon} source={verificationFailed}/>
+                            <Text style={styles.subTitle}>
+                                A Verification attempt is failed!
+                            </Text>
+
+                                <Text style={styles.verifiedFailedText} onTouchStart={makePinSubmitFalse}>Resend verification code</Text>
+                        </>
+                    }
+
                 </View>
             </View>
         </Modal>

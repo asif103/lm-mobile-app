@@ -2,40 +2,62 @@ import React from 'react';
 import {StyleSheet, Text, View, Pressable, Modal, Alert, Image} from "react-native";
 
 
-
-const CustomModal = ({navigation, image, modalVisible, setModalVisible, text, to}) => {
+const CustomModal = ({navigation, image, modalVisible, setModalVisible, text, title, to, cancelButton}) => {
     const modalClosePressed = () => {
         setModalVisible(!modalVisible)
         navigation.navigate(to)
     }
+    const cancelPressed = () => {
+        setModalVisible(!modalVisible)
+    }
 
     return (
 
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                setModalVisible(!modalVisible);
+            }}
+        >
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    {
+                        image &&
                         <Image
                             style={styles.forgotPasswordImage}
                             source={image}
                         />
+                    }
+                    {
+                        title &&
+                        <Text style={styles.Title}>{title}</Text>
+                    }
+                    {
+                        text &&
                         <Text style={styles.modalText}>{text}</Text>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={modalClosePressed}
-                        >
-                            <Text style={styles.buttonText}>OK</Text>
-                        </Pressable>
-                    </View>
+                    }
+                    <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={modalClosePressed}
+                    >
+                        <Text style={styles.buttonText}>Yes, switch</Text>
+                    </Pressable>
+                    {
+                        cancelButton &&
+
+                    <Pressable
+                        style={[styles.button, styles.cancelButton]}
+                        onPress={cancelPressed}
+                    >
+                        <Text style={styles.buttonText}>Cancel</Text>
+                    </Pressable>
+                    }
                 </View>
-            </Modal>
+            </View>
+        </Modal>
     );
 };
 
@@ -48,17 +70,20 @@ const styles = StyleSheet.create({
         // justifyContent: 'space-between',
         backgroundColor: "#ffffff"
     },
-    forgotPasswordImage:{
-        maxWidth:150,
-        height:150
+    forgotPasswordImage: {
+        maxWidth: 150,
+        height: 150
+    },
+    Title:{
+fontSize:17
     },
     button: {
         backgroundColor: "#77ACA2",
         paddingVertical: 15,
-        width: "90%",
-        marginBottom: 20,
+        width: "100%",
+        marginBottom: 10,
         borderRadius: 9,
-        marginTop:30
+        marginTop: 30
     },
     buttonText: {
         color: "#ffffff",
@@ -73,7 +98,7 @@ const styles = StyleSheet.create({
         marginTop: 22,
     },
     modalView: {
-        width:"90%",
+        width: "90%",
         margin: 20,
         backgroundColor: "white",
         borderRadius: 10,
@@ -91,5 +116,13 @@ const styles = StyleSheet.create({
     modalText: {
         marginBottom: 15,
         textAlign: "center"
+    },
+    cancelButton:{
+        backgroundColor: "#ADADAD",
+        paddingVertical: 15,
+        width: "100%",
+        borderRadius: 9,
+        marginTop:-5
+
     }
 });

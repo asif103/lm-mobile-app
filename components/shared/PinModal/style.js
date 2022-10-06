@@ -78,9 +78,17 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
     },
     subTitle: {
+        fontWeight:'medium',
+        fontSize:17,
         paddingVertical: 30,
         color: '#000',
         textAlign: 'center',
+    },
+    verifiedFailedText:{
+        fontWeight:'medium',
+        fontSize:17,
+        paddingVertical: 30,
+        color: '#77ACA2',
     },
     nextButton: {
         marginTop: 30,
