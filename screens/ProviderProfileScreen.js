@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     StyleSheet,
     Text,
@@ -14,8 +14,10 @@ import {Entypo} from '@expo/vector-icons';
 import {Feather} from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import CustomButton from "../components/shared/CustomButton/CustomButton";
+import confirmRemove from '../assets/gifs/confirmRemove.gif'
+import CustomModal from "../components/shared/CustomModal/CustomModal";
 const ProviderProfileScreen = ({navigation}) => {
+    const [modalVisible, setModalVisible] = useState(false);
     React.useLayoutEffect(() => {
         navigation.setOptions({
             headerShadowVisible: false,
@@ -25,6 +27,17 @@ const ProviderProfileScreen = ({navigation}) => {
     }, []);
     return (
         <SafeAreaView style={styles.container}>
+            <CustomModal
+                navigation={navigation}
+                image={confirmRemove}
+                to={'Client Home'}
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                title={'Do you want to switch client?'}
+                cancelButton
+                unlinkButton
+                cancelText={`I've changed my mind!`}
+            />
             <ScrollView style={styles.mainContainer}>
                 <View style={styles.headerContainer}>
                     <View style={styles.headerImageContainer}>
@@ -137,7 +150,7 @@ const ProviderProfileScreen = ({navigation}) => {
                 <TouchableOpacity style={styles.ButtonContainer}>
                     <Text style={styles.ButtonText}>Invite Provider</Text>
                 </TouchableOpacity>
-                    <TouchableOpacity style={styles.unlinkButtonContainer}>
+                    <TouchableOpacity style={styles.unlinkButtonContainer} onPress={() => setModalVisible(true)}>
                         <Text style={styles.ButtonText}>Unlink</Text>
                     </TouchableOpacity>
                 </View>

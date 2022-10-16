@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Pressable, Modal, Alert, Image} from "react-native";
 
 
-const CustomModal = ({navigation, image, modalVisible, setModalVisible, text, title, to, cancelButton}) => {
+const CustomModal = ({navigation, image, modalVisible, setModalVisible, text, title, to, cancelButton, cancelText, unlinkButton, yesButton}) => {
     const modalClosePressed = () => {
         setModalVisible(!modalVisible)
         navigation.navigate(to)
@@ -39,12 +39,15 @@ const CustomModal = ({navigation, image, modalVisible, setModalVisible, text, ti
                         text &&
                         <Text style={styles.modalText}>{text}</Text>
                     }
+                    {
+                        yesButton &&
                     <Pressable
                         style={[styles.button, styles.buttonClose]}
                         onPress={modalClosePressed}
                     >
                         <Text style={styles.buttonText}>Yes, switch</Text>
                     </Pressable>
+                    }
                     {
                         cancelButton &&
 
@@ -52,8 +55,18 @@ const CustomModal = ({navigation, image, modalVisible, setModalVisible, text, ti
                         style={[styles.button, styles.cancelButton]}
                         onPress={cancelPressed}
                     >
-                        <Text style={styles.buttonText}>Cancel</Text>
+                        <Text style={styles.buttonText}>{cancelText}</Text>
                     </Pressable>
+                    }
+                    {
+                        unlinkButton &&
+
+                        <Pressable
+                            style={[styles.button, styles.unlinkButtonContainer]}
+                            onPress={cancelPressed}
+                        >
+                            <Text style={styles.buttonText}>Unlink</Text>
+                        </Pressable>
                     }
                 </View>
             </View>
@@ -123,10 +136,18 @@ fontSize:17
         paddingVertical: 15,
         width: "100%",
         borderRadius: 9,
-        marginTop:-5
+        // marginTop:-5
 
     },
     modalContainer:{
         backgroundColor:'#282828'
+    },
+    unlinkButtonContainer:{
+        backgroundColor: "#FF7676",
+        paddingVertical: 15,
+        width: "100%",
+        marginBottom: 20,
+        borderRadius: 9,
+        marginTop:-5
     }
 });

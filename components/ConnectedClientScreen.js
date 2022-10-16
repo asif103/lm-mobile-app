@@ -26,6 +26,8 @@ const HomeScreen = ({navigation, userImage, title, to}) => {
                 setModalVisible={setModalVisible}
                 title={'Do you want to switch client?'}
                 cancelButton
+                yesButton
+                cancelText={'cancel'}
             />
             <TouchableOpacity style={styles.userCard}
                               onPress={() => setModalVisible(true)}
