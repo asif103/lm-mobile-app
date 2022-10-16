@@ -96,6 +96,7 @@ fontSize:17
         justifyContent: "center",
         alignItems: "center",
         marginTop: 22,
+        backgroundColor:'#28282880'
     },
     modalView: {
         width: "90%",
@@ -124,5 +125,8 @@ fontSize:17
         borderRadius: 9,
         marginTop:-5
 
+    },
+    modalContainer:{
+        backgroundColor:'#282828'
     }
 });

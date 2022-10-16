@@ -14,6 +14,7 @@ import {Entypo} from '@expo/vector-icons';
 import {Feather} from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+import CustomButton from "../components/shared/CustomButton/CustomButton";
 const ProviderProfileScreen = ({navigation}) => {
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -119,6 +120,27 @@ const ProviderProfileScreen = ({navigation}) => {
                         </View>
                     </TouchableOpacity>
                 </View>
+                <View style={styles.itemsContainer}>
+                    <Text style={styles.title}>Linked Provider</Text>
+                    <TouchableOpacity style={styles.itemContainer}>
+                        <Text style={styles.providerName}>Physiologist</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.itemContainer}>
+                        <Text style={styles.providerName}>Physiologist</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.itemContainer}>
+                        <Text style={styles.providerName}>Physiologist</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.itemContainer}>
+                        <Text style={styles.providerName}>Physiologist</Text>
+                    </TouchableOpacity>
+                <TouchableOpacity style={styles.ButtonContainer}>
+                    <Text style={styles.ButtonText}>Invite Provider</Text>
+                </TouchableOpacity>
+                    <TouchableOpacity style={styles.unlinkButtonContainer}>
+                        <Text style={styles.ButtonText}>Unlink</Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
@@ -192,6 +214,32 @@ const styles = StyleSheet.create({
         width:"80%",
         justifyContent:"space-between",
         alignItems:"center"
+    },
+    title:{
+        width:'90%',
+        fontSize: 17,
+        fontWeight: "bold",
+        textAlign:"left"
+    },
+    ButtonContainer:{
+        backgroundColor: "#77ACA2",
+        paddingVertical: 15,
+        width: "90%",
+        marginBottom: 20,
+        borderRadius: 9,
+    },
+    ButtonText: {
+        color: "#ffffff",
+        fontWeight: "bold",
+        fontSize: 16,
+        textAlign: "center"
+    },
+    unlinkButtonContainer:{
+        backgroundColor: "#FF7676",
+        paddingVertical: 15,
+        width: "50%",
+        marginBottom: 20,
+        borderRadius: 9,
     }
 
 });
