@@ -128,7 +128,7 @@ const ProviderProfileScreen = ({navigation}) => {
                                 <Text style={styles.providerSubtitle}>Uploaded by me</Text>
                             </View>
                             <View>
-                                <FontAwesome name="file-image-o" size={24} color="black" />
+                                <AntDesign name="right" size={20} color="black" />
                             </View>
                         </View>
                     </TouchableOpacity>
