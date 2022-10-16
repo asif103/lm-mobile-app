@@ -8,10 +8,12 @@ import {
     TouchableOpacity, ScrollView, TextInput
 } from "react-native";
 import providerImage from '../assets/provider.png'
-import { MaterialIcons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
+import {MaterialIcons} from '@expo/vector-icons';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {Entypo} from '@expo/vector-icons';
+import {Feather} from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 const ProviderProfileScreen = ({navigation}) => {
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -35,23 +37,87 @@ const ProviderProfileScreen = ({navigation}) => {
                         </View>
                         <View style={styles.headerIcons}>
                             <TouchableOpacity style={styles.iconContainer}>
-                                <MaterialIcons name="phone-in-talk" size={24} color="#ffffff" />
+                                <MaterialIcons name="phone-in-talk" size={24} color="#ffffff"/>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.iconContainer}>
-                                <MaterialCommunityIcons name="email-outline" size={24} color="#ffffff" />
+                                <MaterialCommunityIcons name="email-outline" size={24} color="#ffffff"/>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.iconContainer}>
-                                <Entypo name="location" size={24} color="#ffffff" />
+                                <Entypo name="location" size={24} color="#ffffff"/>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.iconContainer}>
-                                <Feather name="globe" size={24} color="#ffffff" />
+                                <Feather name="globe" size={24} color="#ffffff"/>
                             </TouchableOpacity>
 
                         </View>
                     </View>
                 </View>
-                <View>
-                    
+                <View style={styles.itemsContainer}>
+                    <TouchableOpacity style={styles.itemContainer}>
+                        <View style={styles.itemIconContainer}>
+                            <MaterialCommunityIcons name="post-outline" size={40} color="black"/>
+                        </View>
+                        <View style={styles.itemInformationContainer}>
+                            <View>
+                                <Text style={styles.providerName}>Programs</Text>
+                                <Text style={styles.providerSubtitle}>Shared by Josh Walsh</Text>
+                            </View>
+                            <View>
+                                <AntDesign name="right" size={20} color="black" />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+
+
+
+                    <TouchableOpacity style={styles.itemContainer}>
+                        <View style={styles.itemIconContainer}>
+                            <MaterialCommunityIcons name="post-outline" size={40} color="black"/>
+                        </View>
+                        <View style={styles.itemInformationContainer}>
+                            <View>
+                                <Text style={styles.providerName}>Reports</Text>
+                                <Text style={styles.providerSubtitle}>Shared by Josh Walsh</Text>
+                            </View>
+                            <View>
+                                <AntDesign name="right" size={20} color="black" />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+
+
+
+                    <TouchableOpacity style={styles.itemContainer}>
+                        <View style={styles.itemIconContainer}>
+                            <MaterialCommunityIcons name="post-outline" size={40} color="black"/>
+                        </View>
+                        <View style={styles.itemInformationContainer}>
+                            <View>
+                                <Text style={styles.providerName}>Resources</Text>
+                                <Text style={styles.providerSubtitle}>Shared by Josh Walsh</Text>
+                            </View>
+                            <View>
+                                <AntDesign name="right" size={20} color="black" />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+
+
+
+                    <TouchableOpacity style={styles.itemContainer}>
+                        <View style={styles.itemIconContainer}>
+                            <FontAwesome name="file-image-o" size={40} color="black" />
+                        </View>
+                        <View style={styles.itemInformationContainer}>
+                            <View>
+                                <Text style={styles.providerName}>My Uploads</Text>
+                                <Text style={styles.providerSubtitle}>Uploaded by me</Text>
+                            </View>
+                            <View>
+                                <FontAwesome name="file-image-o" size={24} color="black" />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -71,42 +137,61 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     headerContainer: {
-        flexDirection:"row",
-        padding:20
+        flexDirection: "row",
+        padding: 20
     },
     headerImageContainer: {
-        marginRight:20
+        marginRight: 20
     },
     providerImageStyle: {
         width: 105,
         height: 113
     },
-    headerInformation:{
-
+    headerInformation: {},
+    headerIcons: {
+        marginTop: 10,
+        flexDirection: "row"
     },
-    headerIcons:{
-        marginTop:10,
-        flexDirection:"row"
+    providerName: {
+        fontSize: 17,
+        fontWeight: "bold"
     },
-    providerName:{
-        fontSize:17,
-        fontWeight:"bold"
-    },
-    providerSubtitle:{
-        fontSize:14,
+    providerSubtitle: {
+        fontSize: 14,
         color: '#505050'
     },
-    iconContainer:{
-        height:40,
-        width:40,
-        marginRight:10,
-        borderRadius:20,
-        backgroundColor:'#77ACA2',
-        display:"flex",
-        alignItems:'center',
-        justifyContent:"center",
+    iconContainer: {
+        height: 40,
+        width: 40,
+        marginRight: 10,
+        borderRadius: 20,
+        backgroundColor: '#77ACA2',
+        display: "flex",
+        alignItems: 'center',
+        justifyContent: "center",
+    },
+    itemIconContainer:{
+        paddingRight:20
+    },
+    itemsContainer:{
+        width:"100%",
+        alignItems:"center",
 
-
+    },
+    itemContainer: {
+        flexDirection:"row",
+        alignItems:"center",
+        padding:20,
+        backgroundColor:"#F5F5F5",
+        borderRadius:9,
+        width:'90%',
+        marginVertical:10
+    },
+    itemInformationContainer:{
+        flexDirection:"row",
+        width:"80%",
+        justifyContent:"space-between",
+        alignItems:"center"
     }
 
 });
