@@ -14,21 +14,13 @@ import CustomModal from "./shared/CustomModal/CustomModal";
 import forgotPassword from "../assets/gifs/forgot_password.gif";
 
 const ConnectedProviderScreen = ({navigation, userImage, title, to, subtitle}) => {
-    const [modalVisible, setModalVisible] = useState(false);
 
     return (
 
         <>
-            <CustomModal
-                navigation={navigation}
-                to={'Client Home'}
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-                title={'Do you want to switch client?'}
-                cancelButton
-            />
+
             <TouchableOpacity style={styles.userCard}
-                              onPress={() => setModalVisible(true)}
+                              onPress={() => navigation.navigate('providerProfile')}
             >
                 <View style={styles.userCardInfo}>
                     <Image source={userImage} style={styles.userCardImage}/>

@@ -45,7 +45,7 @@ const ClientHomeScreen = ({ navigation }) => {
         <ConnectedProviderScreen navigation={navigation} userImage={userImage} title={'sam samson'} subtitle={'Speech Pathologist'}/>
         <View style={styles.emptySpace}/>
       </ScrollView>
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity style={styles.addButton} onPress={()=>navigation.navigate('addProvider')}>
           <Ionicons name="ios-add-circle" size={50} color="#77ACA2" />
         </TouchableOpacity>
     </SafeAreaView>

@@ -9,6 +9,8 @@ import ResetPasswordScreen from "./AuthenticationScreens/ResetPassword/ResetPass
 import ChooseUserScreen from "./AuthenticationScreens/Register/ChooseUserScreen";
 import RegisterFormScreen from "./AuthenticationScreens/Register/RegisterFormScreen";
 import PinModal from "../components/shared/PinModal/PinModal";
+import AddProviderScreen from "./AddProviderScreen";
+import ProviderProfileScreen from "./ProviderProfileScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -23,7 +25,9 @@ const StackMenu = () => {
             <Stack.Screen name="resetPassword" component={ResetPasswordScreen} options={{ title: "" }} />
             <Stack.Screen name="chooseUserTypeDuringRegister" component={ChooseUserScreen} options={{ title: "" }} />
             <Stack.Screen name="Register" component={RegisterFormScreen} options={{ title: "" }} />
-            <Stack.Screen name="pinScreen" component={PinModal} options={{ title: "" }} />
+            {/*<Stack.Screen name="pinScreen" component={PinModal} options={{ title: "" }} />*/}
+            <Stack.Screen name="addProvider" component={AddProviderScreen} options={{ title: "Providers", headerTitleAlign: 'center' }} />
+            <Stack.Screen name="providerProfile" component={ProviderProfileScreen} />
             <Stack.Screen name="DrawerScreen" component={DrawerMenu}/>
         </Stack.Navigator>
     );

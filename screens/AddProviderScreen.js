@@ -5,19 +5,23 @@ import {
   View,
   Image,
   SafeAreaView,
-  TouchableOpacity, ScrollView
+  TouchableOpacity, ScrollView, TextInput
 } from "react-native";
-import HeaderComponent from "../components/HeaderComponent";
-import userImage from "../assets/user.png";
-import { Ionicons } from '@expo/vector-icons';
-import ConnectedProviderScreen from "../components/ConnectedProviderScreen";
+import { EvilIcons } from '@expo/vector-icons';
 const AddProviderScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      
-        <TouchableOpacity style={styles.addButton}>
-          <Ionicons name="ios-add-circle" size={50} color="#77ACA2" />
-        </TouchableOpacity>
+      <View style={styles.searchHeaderContainer}>
+        <View style={styles.inputContainer}>
+          <EvilIcons name="search" size={30} color="black" style={styles.adornmentIcon} />
+          <TextInput
+              name="firstName"
+              placeholder="Search with email here"
+              keyboardType="string"
+              style={styles.searchInput}
+          />
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -30,56 +34,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#ffffff",
     paddingTop: 50,
-    position: "relative"
   },
-  containerInner:{
-    padding:30,
-    marginBottom:20
+  searchHeaderContainer:{
+    width:"100%"
   },
-  emptySpace:{
-    height:50
+  inputContainer:{
+    position:"relative",
+    width:"100%",
+    alignItems:"center"
   },
-  addButton:{
+  searchInput:{
+    backgroundColor:"#F5F5F5",
+    padding:20,
+    width:'90%',
+    borderRadius:30,
+    paddingLeft:50
+  },
+  adornmentIcon:{
     position:"absolute",
-    bottom:50,
-    right:30
-  },
-  subTitle: {
-    fontSize: 22,
-    fontWeight: "bold",
-  },
-  title: {
-    fontSize: 17,
-    fontWeight: "bold",
-  },
-  paragraph: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    fontSize: 16,
-    textAlign: "center",
-  },
-  mainContentContainer: {
-    paddingTop: 20,
-    width: "90%",
-  },
-  userCard: {
-    width: "90%",
-    padding: 20,
-    marginTop: 20,
-    backgroundColor: "#F5F5F5",
-    borderRadius: 6,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  userCardInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  userCardImage: {
-    height: 36,
-    width: 36,
-    borderRadius: 36 / 2,
-    marginRight: 10,
-  },
+    left:30,
+    bottom:21,
+    zIndex:1
+  }
 });
