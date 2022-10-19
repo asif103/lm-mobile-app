@@ -84,7 +84,7 @@ const ProviderProfileScreen = ({navigation}) => {
 
 
 
-                    <TouchableOpacity style={styles.itemContainer}>
+                    <TouchableOpacity style={styles.itemContainer} onPress={()=>navigation.navigate('providerReportScreen')}>
                         <View style={styles.itemIconContainer}>
                             <MaterialCommunityIcons name="post-outline" size={40} color="black"/>
                         </View>
@@ -101,7 +101,7 @@ const ProviderProfileScreen = ({navigation}) => {
 
 
 
-                    <TouchableOpacity style={styles.itemContainer}>
+                    <TouchableOpacity style={styles.itemContainer} onPress={()=>navigation.navigate('providerResource')}>
                         <View style={styles.itemIconContainer}>
                             <MaterialCommunityIcons name="post-outline" size={40} color="black"/>
                         </View>

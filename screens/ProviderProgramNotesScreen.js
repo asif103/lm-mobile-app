@@ -44,8 +44,8 @@ const ProviderProgramNotesScreen = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.itemsContainer}>
-                    <View>
-                        <Text>My Notes</Text>
+                    <View style={{flexDirection:'row', justifyContent:'space-between', width:"90%", paddingVertical:10}}>
+                        <Text style={{fontWeight:"bold"}}>My Notes</Text>
                         <TouchableOpacity><Text>Add Note</Text></TouchableOpacity>
                     </View>
                     <TouchableOpacity style={styles.NoteItemContainer}>

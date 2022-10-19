@@ -14,6 +14,8 @@ import ProviderProfileScreen from "./ProviderProfileScreen";
 import ProviderProgramScreen from "./ProviderProgramScreen";
 import ProviderProgramNotesScreen from "./ProviderProgramNotesScreen";
 import ProviderProgramPdfScreen from "./ProviderProgramPdfScreen";
+import ProviderReportsScreen from "./ProviderReportsScreen";
+import ProviderResourcesScreen from "./ProviderResourcesScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -34,6 +36,9 @@ const StackMenu = () => {
             <Stack.Screen name="providerProgram" component={ProviderProgramScreen} />
             <Stack.Screen name="providerProgramNotes" component={ProviderProgramNotesScreen} />
             <Stack.Screen name="pdfScreen" component={ProviderProgramPdfScreen} />
+            <Stack.Screen name="providerReportScreen" component={ProviderReportsScreen} />
+            <Stack.Screen name="providerReportDetail" component={ProviderReportsScreen} />
+            <Stack.Screen name="providerResource" component={ProviderResourcesScreen} />
             <Stack.Screen name="DrawerScreen" component={DrawerMenu}/>
         </Stack.Navigator>
     );
