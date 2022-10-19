@@ -67,7 +67,7 @@ const ProviderProfileScreen = ({navigation}) => {
                     </View>
                 </View>
                 <View style={styles.itemsContainer}>
-                    <TouchableOpacity style={styles.itemContainer}>
+                    <TouchableOpacity style={styles.itemContainer} onPress={()=>navigation.navigate('providerProgram')}>
                         <View style={styles.itemIconContainer}>
                             <MaterialCommunityIcons name="post-outline" size={40} color="black"/>
                         </View>

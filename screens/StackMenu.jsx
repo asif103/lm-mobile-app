@@ -11,6 +11,9 @@ import RegisterFormScreen from "./AuthenticationScreens/Register/RegisterFormScr
 import PinModal from "../components/shared/PinModal/PinModal";
 import AddProviderScreen from "./AddProviderScreen";
 import ProviderProfileScreen from "./ProviderProfileScreen";
+import ProviderProgramScreen from "./ProviderProgramScreen";
+import ProviderProgramNotesScreen from "./ProviderProgramNotesScreen";
+import ProviderProgramPdfScreen from "./ProviderProgramPdfScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -28,6 +31,9 @@ const StackMenu = () => {
             {/*<Stack.Screen name="pinScreen" component={PinModal} options={{ title: "" }} />*/}
             <Stack.Screen name="addProvider" component={AddProviderScreen} options={{ title: "Providers", headerTitleAlign: 'center' }} />
             <Stack.Screen name="providerProfile" component={ProviderProfileScreen} />
+            <Stack.Screen name="providerProgram" component={ProviderProgramScreen} />
+            <Stack.Screen name="providerProgramNotes" component={ProviderProgramNotesScreen} />
+            <Stack.Screen name="pdfScreen" component={ProviderProgramPdfScreen} />
             <Stack.Screen name="DrawerScreen" component={DrawerMenu}/>
         </Stack.Navigator>
     );
