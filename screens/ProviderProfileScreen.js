@@ -18,10 +18,11 @@ import confirmRemove from '../assets/gifs/confirmRemove.gif'
 import CustomModal from "../components/shared/CustomModal/CustomModal";
 const ProviderProfileScreen = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [providerName, setProviderName] = useState('Josh Walsh')
     React.useLayoutEffect(() => {
         navigation.setOptions({
             headerShadowVisible: false,
-            title: "Josh Walsh",
+            title: providerName,
             headerTitleAlign: 'center'
         });
     }, []);
@@ -33,7 +34,8 @@ const ProviderProfileScreen = ({navigation}) => {
                 to={'Client Home'}
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
-                title={'Do you want to switch client?'}
+                title={'Are you sure you want to remove\n' +
+                    providerName+' as you provider?'}
                 cancelButton
                 unlinkButton
                 cancelText={`I've changed my mind!`}

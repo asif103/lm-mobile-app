@@ -29,7 +29,7 @@ const HomeScreen = ({navigation}) => {
                 <ConnectedClientScreen navigation={navigation} userImage={userImage} title={'sam samson'}/>
                 <ConnectedClientScreen navigation={navigation} userImage={userImage} title={'sam samson'}/>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('addClient')}>
                         <Text style={styles.buttonText}>Add another client profile</Text>
                     </TouchableOpacity>
                 </View>

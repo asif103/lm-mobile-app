@@ -8,6 +8,8 @@ import AnimatedCheckbox from 'react-native-checkbox-reanimated'
 import forgotPassword from "../../../assets/gifs/forgot_password.gif";
 import CustomModal from "../../../components/shared/CustomModal/CustomModal";
 import PinModal from "../../../components/shared/PinModal/PinModal";
+import TOCModal from "../../../components/shared/CustomModal/TOCModal";
+import PPModal from "../../../components/shared/CustomModal/PPModal";
 
 
 const loginValidationSchema = yup.object().shape({
@@ -39,6 +41,8 @@ const RegisterFormScreen = ({navigation}) => {
     const [show, setShow] = useState(false);
     const [checked, setChecked] = useState(false)
     const [modalVisible, setModalVisible] = useState(false);
+    const [TOCModalVisible, setTOCModalVisible] = useState(false)
+    const [PPModalVisible, setPPModalVisible] = useState(false)
 
     const handleCheckboxPress = () => {
         setChecked(prev => {
@@ -83,6 +87,14 @@ const RegisterFormScreen = ({navigation}) => {
                 setModalVisible={setModalVisible}
                 // image={forgotPassword}
                 // text={'A link has been sent to the Link Me registered email address with instructions for resetting your password.'}
+            />
+            <TOCModal
+            TOCmodalVisible={TOCModalVisible}
+            setTOCModalVisible={setTOCModalVisible}
+            />
+            <PPModal
+            PPmodalVisible={PPModalVisible}
+            setPPModalVisible={setPPModalVisible}
             />
             <Text style={styles.title}>Create your account</Text>
             <Text style={styles.subtitle}>Please fill in the required information below</Text>
@@ -204,8 +216,8 @@ const RegisterFormScreen = ({navigation}) => {
                                     boxOutlineColor="#77ACA2"
                                 />
                             </Pressable>
-                            <Text>I am agree with the Terms of Services and the
-                                Privacy Policy of Link Me Digital Health.</Text>
+                            <Text style={{paddingHorizontal:10}}>I am agree with the <Text style={{textDecorationLine: 'underline', fontStyle: 'italic', padding:0}} onPress={()=>setTOCModalVisible(true)}>Terms of Services</Text> and the 
+                                <Text style={{textDecorationLine: 'underline', fontStyle: 'italic', padding:0}} onPress={()=>setPPModalVisible(true)}>Privacy Policy</Text> of Link Me Digital Health.</Text>
                         </View>
                         <TouchableOpacity
                             onPress={handleSubmit}
@@ -279,13 +291,13 @@ const styles = StyleSheet.create({
     },
     checkboxContainer: {
         width: "90%",
-        flexDirection:"row",
-        alignItems:"center",
-        marginVertical:20
+        flexDirection: "row",
+        alignItems: "center",
+        marginVertical: 20
     },
     checkbox: {
         width: 20,
         height: 20,
-        marginRight:10
+        marginRight: 10
     }
 });

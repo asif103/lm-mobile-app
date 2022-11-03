@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Pressable, Modal, Alert, Image} from "react-native";
 
 
-const CustomModal = ({navigation, image, modalVisible, setModalVisible, text, title, to, cancelButton, cancelText, unlinkButton, yesButton}) => {
+const CustomModal = ({navigation, image, modalVisible, setModalVisible, text, title, to, cancelButton, cancelText, unlinkButton, yesButton, buttonText}) => {
     const modalClosePressed = () => {
         setModalVisible(!modalVisible)
         navigation.navigate(to)
@@ -45,7 +45,7 @@ const CustomModal = ({navigation, image, modalVisible, setModalVisible, text, ti
                         style={[styles.button, styles.buttonClose]}
                         onPress={modalClosePressed}
                     >
-                        <Text style={styles.buttonText}>Yes, switch</Text>
+                        <Text style={styles.buttonText}>{buttonText}</Text>
                     </Pressable>
                     }
                     {

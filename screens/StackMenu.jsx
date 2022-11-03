@@ -16,6 +16,7 @@ import ProviderProgramNotesScreen from "./ProviderProgramNotesScreen";
 import ProviderProgramPdfScreen from "./ProviderProgramPdfScreen";
 import ProviderReportsScreen from "./ProviderReportsScreen";
 import ProviderResourcesScreen from "./ProviderResourcesScreen";
+import AddClientScreen from "./AddClientScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -30,6 +31,7 @@ const StackMenu = () => {
             <Stack.Screen name="resetPassword" component={ResetPasswordScreen} options={{ title: "" }} />
             <Stack.Screen name="chooseUserTypeDuringRegister" component={ChooseUserScreen} options={{ title: "" }} />
             <Stack.Screen name="Register" component={RegisterFormScreen} options={{ title: "" }} />
+            <Stack.Screen name="addClient" component={AddClientScreen} options={{ title: "" }} />
             {/*<Stack.Screen name="pinScreen" component={PinModal} options={{ title: "" }} />*/}
             <Stack.Screen name="addProvider" component={AddProviderScreen} options={{ title: "Providers", headerTitleAlign: 'center' }} />
             <Stack.Screen name="providerProfile" component={ProviderProfileScreen} />

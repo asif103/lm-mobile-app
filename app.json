@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "ro-client-app",
-    "slug": "ro-client-app",
+    "name": "LinkMe-client-app",
+    "slug": "linkme-client",
+    "owner": "linkme",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,7 +14,7 @@
     },
     "updates": {
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/f08e8356-4753-42e7-baf8-5c95d59bddd8"
+      "url": "https://u.expo.dev/10e5dad4-0ca7-44e3-b0c7-6a4dfb4b22c1"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -33,7 +34,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "f08e8356-4753-42e7-baf8-5c95d59bddd8"
+        "projectId": "10e5dad4-0ca7-44e3-b0c7-6a4dfb4b22c1"
       }
     },
     "runtimeVersion": {

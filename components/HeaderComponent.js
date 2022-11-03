@@ -1,23 +1,93 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, SafeAreaView } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import user from "../assets/user.png";
+import {StyleSheet, Text, View, Image, SafeAreaView, BackHandler, TouchableOpacity} from "react-native";
+import { AntDesign, MaterialIcons, Ionicons  } from "@expo/vector-icons";
 
-const HeaderComponent = ({ navigation, greet, name, imageFile }) => {
+const HeaderComponent = ({ navigation, greet, name, imageFile, profile, toc, tocTitle, notification }) => {
   return (
     <View style={styles.headerBar}>
-      <View style={styles.infoContainer}>
-        <Image source={imageFile} style={styles.profileImage} />
-        <View>
-          <Text style={styles.title}>{greet},</Text>
-          <Text style={styles.subTitle}>{name}</Text>
+      {(!profile && !toc && !notification) &&
+
+      <>
+        <View style={styles.infoContainer}>
+          <Image source={imageFile} style={styles.profileImage} />
+          <View>
+            <Text style={styles.title}>{greet},</Text>
+            <Text style={styles.subTitle}>{name}</Text>
+          </View>
         </View>
-      </View>
-      <View>
-        <Text onPress={() => navigation.openDrawer()}>
-          <AntDesign name="menu-unfold" size={24} color="black" />
-        </Text>
-      </View>
+        <View>
+          <Text onPress={() => navigation.openDrawer()}>
+            <AntDesign name="menu-unfold" size={24} color="black" />
+          </Text>
+        </View>
+      </>
+      }
+      {
+        (profile && !toc) &&
+          <View style={{width:"100%", alignItems:"center"}}>
+            <View style={{width:"90%",flexDirection:"row", justifyContent:"space-between"}}>
+              <View>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <Ionicons name="chevron-back" size={24} color="black" />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <Text style={{fontWeight:"bold"}}>
+                  Edit
+                </Text>
+              </View>
+              <View>
+                <Text style={{fontWeight:"bold", color:"#468189"}}>
+                  Done
+                </Text>
+              </View>
+            </View>
+          </View>
+      }
+      {
+          toc &&
+          <View style={{width:"100%", alignItems:"center"}}>
+            <View style={{width:"90%",flexDirection:"row", justifyContent:"space-between"}}>
+              <View>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <Ionicons name="chevron-back" size={24} color="black" />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <Text style={{fontWeight:"bold"}}>
+                  {tocTitle}
+                </Text>
+              </View>
+              <View>
+                <Text style={{fontWeight:"bold", color:"#468189"}}>
+
+                </Text>
+              </View>
+            </View>
+          </View>
+      }
+      {
+          (!profile && !toc && notification) &&
+          <View style={{width:"100%", alignItems:"center"}}>
+            <View style={{width:"90%",flexDirection:"row", justifyContent:"space-between"}}>
+              <View>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <Ionicons name="chevron-back" size={24} color="black" />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <Text style={{fontWeight:"bold"}}>
+                  Notification
+                </Text>
+              </View>
+              <View>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <MaterialIcons name="settings-input-component" size={24} color="black" />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+      }
     </View>
   );
 };

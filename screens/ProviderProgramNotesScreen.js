@@ -18,7 +18,6 @@ import confirmRemove from '../assets/gifs/confirmRemove.gif'
 import CustomModal from "../components/shared/CustomModal/CustomModal";
 
 const ProviderProgramNotesScreen = ({navigation}) => {
-    const [modalVisible, setModalVisible] = useState(false);
     React.useLayoutEffect(() => {
         navigation.setOptions({
             headerShadowVisible: false,
