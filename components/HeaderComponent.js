@@ -81,7 +81,7 @@ const HeaderComponent = ({ navigation, greet, name, imageFile, profile, toc, toc
                 </Text>
               </View>
               <View>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
+                <TouchableOpacity onPress={() => navigation.navigate('NotificationSettings')}>
                   <MaterialIcons name="settings-input-component" size={24} color="black" />
                 </TouchableOpacity>
               </View>

@@ -17,6 +17,8 @@ import ProviderProgramPdfScreen from "./ProviderProgramPdfScreen";
 import ProviderReportsScreen from "./ProviderReportsScreen";
 import ProviderResourcesScreen from "./ProviderResourcesScreen";
 import AddClientScreen from "./AddClientScreen";
+import NotificationSettingsScreen from "./NotificationSettingsScreen";
+import FAQScreen from "./FAQScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -42,6 +44,8 @@ const StackMenu = () => {
             <Stack.Screen name="providerReportDetail" component={ProviderReportsScreen} />
             <Stack.Screen name="providerResource" component={ProviderResourcesScreen} />
             <Stack.Screen name="DrawerScreen" component={DrawerMenu}/>
+            <Stack.Screen name="NotificationSettings" options={{ title: "Settings", headerTitleAlign: 'center' }} component={NotificationSettingsScreen}/>
+            <Stack.Screen name="faq" options={{ title: "F.A.Q", headerTitleAlign: 'center' }} component={FAQScreen}/>
         </Stack.Navigator>
     );
 };

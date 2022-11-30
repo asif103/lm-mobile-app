@@ -11,6 +11,7 @@ import TermsOfService from "./TermsOfService";
 import PrivacyPolicy from "./PrivacyPolicy";
 import SignOut from "./SignOut";
 import NotificationScreen from "./NotificationScreen";
+import HelpAndSupport from "./HelpAndSupport";
 // import { AntDesign } from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
@@ -77,6 +78,13 @@ const DrawerMenu = ({ navigation }) => {
             component={NotificationScreen}
             options={{
                 title: "Notification",
+            }}
+        />
+        <Drawer.Screen
+            name="HelpAndSupport"
+            component={HelpAndSupport}
+            options={{
+                title: "Help & Support",
             }}
         />
         <Drawer.Screen

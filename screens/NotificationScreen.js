@@ -10,6 +10,26 @@ import HeaderComponent from "../components/HeaderComponent";
 import userImage from "../assets/carer.png";
 
 const NotificationScreen = ({navigation}) => {
+    const notificationData = [
+        {
+            name: 'name 001',
+            image: userImage,
+            note: 'A new report has been uploaded.',
+            read:false
+        },
+        {
+            name: 'name 002',
+            image: userImage,
+            note: 'John, requested to get access.',
+            read:false
+        },
+        {
+            name: 'name 003',
+            image: userImage,
+            note: 'A new report has been uploaded.',
+            read:true
+        },
+    ]
 
     return (
         <SafeAreaView style={styles.container}>
@@ -19,14 +39,34 @@ const NotificationScreen = ({navigation}) => {
                 />
             <ScrollView>
 
+                {
+                    notificationData?.map((data, i) =>
 
-                <View style={{width:Dimensions.get("window").width, padding:10, backgroundColor:"#F5F5F5", borderWidth:1, borderColor:"#F5F5F5", flexDirection:"row", alignItems:"center"}}>
-                    <Image source={userImage} style={{height:35, width:35, marginRight:10}}/>
-                    <View>
-                        <Text style={{fontSize:16, fontWeight:"600", color:"#2D2D2D"}}>John Smith</Text>
-                        <Text style={{color:"#505050"}}>A new report has been uploaded.</Text>
-                    </View>
-                </View>
+                        <View style={{
+                            width: Dimensions.get("window").width,
+                            paddingHorizontal: 30,
+                            paddingVertical: 10,
+                            backgroundColor: data.read?'#ffffff':"#F5F5F5",
+                            borderWidth: 1,
+                            borderColor: "#F5F5F5",
+                            flexDirection: "row",
+                            alignItems: "center"
+                        }} key={i}>
+                            <Image source={data.image} style={{height: 35, width: 35, marginRight: 10}}/>
+                            <View style={{width:'70%'}}>
+                                <Text style={{fontSize: 16, fontWeight: "600", color: "#2D2D2D"}}>{data.name}</Text>
+                                <Text style={{color: "#505050"}}>{data.note}</Text>
+                            </View>
+                            <View style={{width:'20%', alignItems:"flex-end", }}>
+                                <Text style={{ fontWeight: "500", color: "#2D2D2D"}}>Now</Text>
+                                {
+                                    !data.read &&
+                                <View style={{height:10, width:10, backgroundColor:"#468189", borderRadius:10, marginTop:10}}/>
+                                }
+                            </View>
+                        </View>
+                    )
+                }
 
                 <View style={styles.emptySpace}/>
             </ScrollView>
