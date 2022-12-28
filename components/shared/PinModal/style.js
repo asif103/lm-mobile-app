@@ -1,6 +1,6 @@
-import {StyleSheet, Platform} from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
-export const CELL_SIZE = 50;
+export const CELL_SIZE = 40;
 export const CELL_BORDER_RADIUS = 8;
 export const DEFAULT_CELL_BG_COLOR = '#fff';
 export const NOT_EMPTY_CELL_BG_COLOR = '#3557b7';
@@ -12,13 +12,14 @@ const styles = StyleSheet.create({
         marginTop: 30,
         paddingHorizontal: 20,
         justifyContent: 'center',*/
+        // justifyContent: 'start',
     },
     cell: {
         marginHorizontal: 5,
         height: CELL_SIZE,
         width: CELL_SIZE,
         lineHeight: CELL_SIZE - 5,
-        ...Platform.select({web: {lineHeight: 65}}),
+        ...Platform.select({ web: { lineHeight: 65 } }),
         fontSize: 30,
         textAlign: 'center',
         borderRadius: CELL_BORDER_RADIUS,
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
         marginTop: 22,
     },
     modalView: {
-        width:"90%",
+        width: "90%",
         margin: 20,
         backgroundColor: "white",
         borderRadius: 10,
@@ -78,15 +79,15 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
     },
     subTitle: {
-        fontWeight:'medium',
-        fontSize:17,
+        fontWeight: 'medium',
+        fontSize: 17,
         paddingVertical: 30,
         color: '#000',
         textAlign: 'center',
     },
-    verifiedFailedText:{
-        fontWeight:'medium',
-        fontSize:17,
+    verifiedFailedText: {
+        fontWeight: 'medium',
+        fontSize: 17,
         paddingVertical: 30,
         color: '#77ACA2',
     },

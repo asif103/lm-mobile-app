@@ -1,5 +1,5 @@
-import {Alert, Animated, Image, Modal, SafeAreaView, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import { Alert, Animated, Image, Modal, SafeAreaView, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import imageSource from '../../../assets/gifs/forgot_password.gif'
 import verificationSuccessful from '../../../assets/gifs/success_password_change.gif'
 import verificationFailed from '../../../assets/gifs/verification_failed.gif'
@@ -18,17 +18,20 @@ import styles, {
     DEFAULT_CELL_BG_COLOR,
     NOT_EMPTY_CELL_BG_COLOR,
 } from './style';
+import axios from 'axios';
+import { BASE_URL } from '../../../config/config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const {Value, Text: AnimatedText} = Animated;
+const { Value, Text: AnimatedText } = Animated;
 
-const CELL_COUNT = 5;
+const CELL_COUNT = 6;
 const source = {
     uri: 'https://user-images.githubusercontent.com/4661784/56352614-4631a680-61d8-11e9-880d-86ecb053413d.png',
 };
 
 const animationsColor = [...new Array(CELL_COUNT)].map(() => new Value(0));
 const animationsScale = [...new Array(CELL_COUNT)].map(() => new Value(1));
-const animateCell = ({hasValue, index, isFocused}) => {
+const animateCell = ({ hasValue, index, isFocused }) => {
     Animated.parallel([
         Animated.timing(animationsColor[index], {
             useNativeDriver: false,
@@ -43,35 +46,54 @@ const animateCell = ({hasValue, index, isFocused}) => {
     ]).start();
 };
 
-const PinModal = ({navigation, modalVisible, setModalVisible, text, to}) => {
+const PinModal = ({ navigation, modalVisible, setModalVisible, text, to }) => {
     const [value, setValue] = useState('');
     const [pinSubmitSuccess, setPinSubmitSuccess] = useState(false)
     const [pinSubmitFailed, setPinSubmitFailed] = useState(false)
-    const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
+    const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
         value,
         setValue,
     });
+
+    const [activeUser, setActiveUser] = useState({});
+
+    useEffect(() => {
+        AsyncStorage.getItem('@activeUser')
+            .then(res => {
+                setActiveUser(JSON.parse(res));
+            });
+    }, [activeUser?._id]);
+
     const modalClosePressed = () => {
         console.log('pressed')
         /*setModalVisible(!modalVisible)
         navigation.navigate(to)*/
     }
-    const makePinSubmitSuccess =()=>{
-        setPinSubmitSuccess(true)
-        setPinSubmitFailed(false)
+    const makePinSubmitSuccess = () => {
+        axios.get(`${BASE_URL}/client/verify?_userId=${activeUser._id}&token=${value}`)
+            .then(response => {
+                console.log('response', response)
+                if (response.data.status === 'success') {
+                    setPinSubmitSuccess(true)
+                    setPinSubmitFailed(false)
+                }
+            }).catch(err => {
+                console.log('error', err)
+            });
+
     }
-    const makePinSubmitFailed =()=>{
+    const makePinSubmitFailed = () => {
         setPinSubmitSuccess(false)
         setPinSubmitFailed(true)
     }
-    const makePinSubmitFalse =()=>{
+    const makePinSubmitFalse = () => {
         setPinSubmitSuccess(false)
         setPinSubmitFailed(false)
         setValue('')
     }
 
-    const renderCell = ({index, symbol, isFocused}) => {
+    const renderCell = ({ index, symbol, isFocused }) => {
         const hasValue = Boolean(symbol);
         const animatedCellStyle = {
             backgroundColor: hasValue
@@ -100,7 +122,7 @@ const PinModal = ({navigation, modalVisible, setModalVisible, text, to}) => {
         // Run animation on next event loop tik
         // Because we need first return new style prop and then animate this value
         setTimeout(() => {
-            animateCell({hasValue, index, isFocused});
+            animateCell({ hasValue, index, isFocused });
         }, 0);
 
         return (
@@ -108,7 +130,7 @@ const PinModal = ({navigation, modalVisible, setModalVisible, text, to}) => {
                 key={index}
                 style={[styles.cell, animatedCellStyle]}
                 onLayout={getCellOnLayoutHandler(index)}>
-                {symbol || (isFocused ? <Cursor/> : null)}
+                {symbol || (isFocused ? <Cursor /> : null)}
             </AnimatedText>
         );
     };
@@ -128,45 +150,45 @@ const PinModal = ({navigation, modalVisible, setModalVisible, text, to}) => {
                     {
                         (!pinSubmitSuccess && !pinSubmitFailed) &&
 
-                    <>
-                        <Image style={styles.icon} source={imageSource}/>
-                        <Text style={styles.subTitle}>
-                            A verification email has been sent to
-                            your registered email address.
-                        </Text>
+                        <>
+                            <Image style={styles.icon} source={imageSource} />
+                            <Text style={styles.subTitle}>
+                                A verification email has been sent to
+                                your registered email address.
+                            </Text>
 
-                        <CodeField
-                            ref={ref}
-                            {...props}
-                            value={value}
-                            onChangeText={setValue}
-                            cellCount={CELL_COUNT}
-                            rootStyle={styles.codeFieldRoot}
-                            keyboardType="number-pad"
-                            textContentType="oneTimeCode"
-                            renderCell={renderCell}
-                        />
-                        <View style={styles.nextButton}
-                              // onTouchStart={modalClosePressed}
-                              onTouchStart={makePinSubmitSuccess}
-                        >
-                            <Text style={styles.nextButtonText}>Verify</Text>
-                        </View>
-                    </>
+                            <CodeField
+                                ref={ref}
+                                {...props}
+                                value={value}
+                                onChangeText={setValue}
+                                cellCount={CELL_COUNT}
+                                rootStyle={styles.codeFieldRoot}
+                                keyboardType="number-pad"
+                                textContentType="oneTimeCode"
+                                renderCell={renderCell}
+                            />
+                            <View style={styles.nextButton}
+                                // onTouchStart={modalClosePressed}
+                                onTouchStart={makePinSubmitSuccess}
+                            >
+                                <Text style={styles.nextButtonText}>Verify</Text>
+                            </View>
+                        </>
                     }
                     {
                         (pinSubmitSuccess && !pinSubmitFailed) &&
 
                         <>
-                            <Image style={styles.icon} source={verificationSuccessful}/>
+                            <Image style={styles.icon} source={verificationSuccessful} />
                             <Text style={styles.subTitle}>
                                 Verified!
                             </Text>
 
 
                             <View style={styles.nextButton}
-                                  // onTouchStart={modalClosePressed}
-                                  onTouchStart={makePinSubmitFailed}
+                                // onTouchStart={modalClosePressed}
+                                onTouchStart={makePinSubmitFailed}
                             >
                                 <Text style={styles.nextButtonText}>Done</Text>
                             </View>
@@ -176,12 +198,12 @@ const PinModal = ({navigation, modalVisible, setModalVisible, text, to}) => {
                         (!pinSubmitSuccess && pinSubmitFailed) &&
 
                         <>
-                            <Image style={styles.icon} source={verificationFailed}/>
+                            <Image style={styles.icon} source={verificationFailed} />
                             <Text style={styles.subTitle}>
                                 A Verification attempt is failed!
                             </Text>
 
-                                <Text style={styles.verifiedFailedText} onTouchStart={makePinSubmitFalse}>Resend verification code</Text>
+                            <Text style={styles.verifiedFailedText} onTouchStart={makePinSubmitFalse}>Resend verification code</Text>
                         </>
                     }
 

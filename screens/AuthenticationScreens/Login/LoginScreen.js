@@ -40,6 +40,7 @@ const LoginScreen = ({ navigation }) => {
                 if (response.data.status === 'success') {
                     const user = response.data.data.user;
                     storeData(user, '@activeUser');
+                    console.log('LOGIN SUCCESS', user)
                 }
             }).catch(err => {
                 console.log('error', err)
@@ -50,7 +51,7 @@ const LoginScreen = ({ navigation }) => {
     useEffect(() => {
         AsyncStorage.getItem('@activeUser')
             .then(res => {
-                console.log('activeUser', res);
+                console.log('activeUser', JSON.parse(res));
             });
     }, []);
 
