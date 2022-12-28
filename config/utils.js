@@ -29,6 +29,7 @@ export function logCurrentStorage() {
             }
 
             console.log('CURRENT STORAGE: ', myStorage);
+            return myStorage
         })
     });
 }

@@ -8,6 +8,9 @@ import {
 } from "react-native";
 import HeaderComponent from "../components/HeaderComponent";
 import userImage from "../assets/carer.png";
+import axios from "axios";
+import {BASE_URL} from "../config/config";
+import {logCurrentStorage, storeData} from "../config/utils";
 
 const NotificationScreen = ({navigation}) => {
     const notificationData = [
@@ -30,6 +33,24 @@ const NotificationScreen = ({navigation}) => {
             read:true
         },
     ]
+    console.log("dddddddddddddddddd",logCurrentStorage)
+    const getInvite = () => {
+
+        axios.get(`${BASE_URL}/client/login`, {
+            headers: {
+                'Authorization': `bearer ${access_token}`
+            }
+        })
+            .then(response => {
+                // console.log(response.data.data.user)
+                /*if (response.data.status === 'success') {
+                    const user = response.data.data.user;
+                    storeData(user, '@activeUser');
+                }*/
+            }).catch(err => {
+            console.log('error', err)
+        });
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -38,6 +59,7 @@ const NotificationScreen = ({navigation}) => {
                     notification
                 />
             <ScrollView>
+                <Text>asdasdas{JSON.stringify(logCurrentStorage)}</Text>
 
                 {
                     notificationData?.map((data, i) =>
