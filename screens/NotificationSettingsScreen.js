@@ -8,6 +8,7 @@ import {
 import {AntDesign, Foundation} from '@expo/vector-icons';
 
 const NotificationSettingsScreen = ({navigation}) => {
+
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
