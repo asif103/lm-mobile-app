@@ -1,60 +1,88 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, TextInput, Button} from "react-native";
-import {Formik} from 'formik'
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Button } from "react-native";
+import { Formik } from 'formik'
 import * as yup from 'yup'
+import axios from 'axios';
+import { BASE_URL } from '../../../config/config';
+import { logCurrentStorage, removeItemValue, storeData } from '../../../config/utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const loginValidationSchema = yup.object().shape({
-    email: yup
+    userName: yup
         .string()
-        .email("Please enter valid email")
         .required('Email Address is Required'),
     password: yup
         .string()
-        .min(8, ({min}) => `Password must be at least ${min} characters`)
+        .min(8, ({ min }) => `Password must be at least ${min} characters`)
         .required('Password is required'),
 })
-const LoginScreen = ({navigation}) => {
-    const [email, setEmail] = useState("");
+const LoginScreen = ({ navigation }) => {
+    const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
+
     React.useLayoutEffect(() => {
         navigation.setOptions({
             headerShadowVisible: false,
             headerRight: () => (
-                <TouchableOpacity style={{paddingHorizontal: 10}}
-                                  onPress={() => navigation.navigate('Register')}><Text>Sign
-                    Up</Text></TouchableOpacity>
+                <TouchableOpacity style={{ paddingHorizontal: 10 }}
+                    onPress={() => navigation.navigate('Register')}><Text>Sign
+                        Up</Text></TouchableOpacity>
             ),
         });
     }, []);
+
+    const handleLogin = (data) => {
+
+        axios.post(`${BASE_URL}/client/login`, data)
+            .then(response => {
+                // console.log(response.data.data.user)
+                if (response.data.status === 'success') {
+                    const user = response.data.data.user;
+                    storeData(user, '@activeUser');
+                }
+            }).catch(err => {
+                console.log('error', err)
+            });
+    }
+
+
+    useEffect(() => {
+        AsyncStorage.getItem('@activeUser')
+            .then(res => {
+                console.log('activeUser', res);
+            });
+    }, []);
+
+
     return (
         <View style={styles.container}>
 
             <Text style={styles.title}>Sign in to your account </Text>
             <Formik
                 validationSchema={loginValidationSchema}
-                initialValues={{email: '', password: ''}}
-                onSubmit={values => console.log(values)}
+                initialValues={{ userName: '', password: '' }}
+                onSubmit={values => handleLogin(values)}
             >
-                {({handleChange, handleBlur, handleSubmit,errors, values,isValid, touched}) => (
+                {({ handleChange, handleBlur, handleSubmit, errors, values, isValid, touched }) => (
                     <>
                         <TextInput
-                            name="email"
+                            name="userName"
                             placeholder="Email Address"
-                            style={(errors.email && touched.email) ? styles.errorInput : styles.input}
-                            onChangeText={handleChange('email')}
-                            onBlur={handleBlur('email')}
-                            value={values.email}
-                            keyboardType="email-address"
+                            style={(errors.userName && touched.userName) ? styles.errorInput : styles.input}
+                            onChangeText={handleChange('userName')}
+                            onBlur={handleBlur('userName')}
+                            value={values.userName}
+                            keyboardType="username"
                         />
-                        {(errors.email && touched.email) &&
-                            <Text style={styles.errorText}>{errors.email}</Text>
+                        {(errors.userName && touched.userName) &&
+                            <Text style={styles.errorText}>{errors.userName}</Text>
                         }
                         <TextInput
                             name="password"
                             placeholder="Password"
                             style={
-                            (errors.password && touched.password) ? styles.errorInput : styles.input}
+                                (errors.password && touched.password) ? styles.errorInput : styles.input}
                             onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
                             value={values.password}
@@ -64,7 +92,7 @@ const LoginScreen = ({navigation}) => {
                             <Text style={styles.errorText}>{errors.password}</Text>
                         }
                         <Text style={styles.forgotPassword}
-                              onPress={() => navigation.navigate('ForgotPassword')}
+                            onPress={() => navigation.navigate('ForgotPassword')}
                         >Forgot your password?</Text>
                         <TouchableOpacity
                             onPress={handleSubmit}
@@ -89,8 +117,8 @@ const styles = StyleSheet.create({
         // justifyContent: 'space-between',
         backgroundColor: "#ffffff"
     },
-    errorText:{
-        color:"red"
+    errorText: {
+        color: "red"
     },
     button: {
         backgroundColor: "#77ACA2",
@@ -121,7 +149,7 @@ const styles = StyleSheet.create({
         borderRadius: 9,
         padding: 10,
     },
-    errorInput:{
+    errorInput: {
         height: 50,
         width: "90%",
         margin: 12,
@@ -132,8 +160,8 @@ const styles = StyleSheet.create({
         borderRadius: 9,
         padding: 10,
     },
-    forgotPassword:{
+    forgotPassword: {
         color: '#505050',
-        paddingVertical:30
+        paddingVertical: 30
     }
 });
