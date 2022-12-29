@@ -1,16 +1,17 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
     StyleSheet,
     Text,
     View,
     Image,
-    SafeAreaView, ScrollView, Dimensions,
+    SafeAreaView, ScrollView, Dimensions, TouchableOpacity,
 } from "react-native";
 import HeaderComponent from "../components/HeaderComponent";
 import userImage from "../assets/carer.png";
 import axios from "axios";
 import {BASE_URL} from "../config/config";
 import {logCurrentStorage, storeData} from "../config/utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const NotificationScreen = ({navigation}) => {
     const notificationData = [
@@ -33,16 +34,34 @@ const NotificationScreen = ({navigation}) => {
             read:true
         },
     ]
-    console.log("dddddddddddddddddd",logCurrentStorage)
+    const [activeUser, setActiveUser] = useState({});
+    const [activeToken, setActiveToken] = useState({});
+    const [invites, setInvites] = useState([])
+
+    useEffect(() => {
+        AsyncStorage.getItem('@activeUser')
+            .then(res => {
+                setActiveUser(JSON.parse(res));
+            });
+        AsyncStorage.getItem('@activeToken')
+            .then(res => {
+                setActiveToken(JSON.parse(res));
+            });
+
+    }, []);
+    useEffect(()=>{
+        getInvite()
+    }, [activeToken])
     const getInvite = () => {
 
-        axios.get(`${BASE_URL}/client/login`, {
+        axios.get(`${BASE_URL}/client/providerRequests`, {
             headers: {
-                'Authorization': `bearer ${access_token}`
+                'Authorization': `Bearer ${activeToken}`
             }
         })
             .then(response => {
-                // console.log(response.data.data.user)
+                console.log("daaaaataaaaaaaaa",response.data.data[0].clientId.firstName)
+                setInvites(response.data.data)
                 /*if (response.data.status === 'success') {
                     const user = response.data.data.user;
                     storeData(user, '@activeUser');
@@ -52,6 +71,25 @@ const NotificationScreen = ({navigation}) => {
         });
     }
 
+    const acceptInvite =(providerId) =>{
+    console.log(providerId)
+        axios.post(`${BASE_URL}/client/acceptInvite/${providerId}`, {},
+        {
+            headers: {
+                'Authorization': `Bearer ${activeToken}`
+            }
+        })
+            .then(response => {
+                console.log("daaaaa",response.data)
+                // setInvites(response.data.data)
+                /*if (response.data.status === 'success') {
+                    const user = response.data.data.user;
+                    storeData(user, '@activeUser');
+                }*/
+            }).catch(err => {
+            console.log('error', err)
+        });
+    }
     return (
         <SafeAreaView style={styles.container}>
                 <HeaderComponent
@@ -59,7 +97,7 @@ const NotificationScreen = ({navigation}) => {
                     notification
                 />
             <ScrollView>
-                <Text>asdasdas{JSON.stringify(logCurrentStorage)}</Text>
+                {/*<Text>asdasdas{JSON.stringify(activeToken)}</Text>*/}
 
                 {
                     notificationData?.map((data, i) =>
@@ -86,6 +124,15 @@ const NotificationScreen = ({navigation}) => {
                                 <View style={{height:10, width:10, backgroundColor:"#468189", borderRadius:10, marginTop:10}}/>
                                 }
                             </View>
+                        </View>
+                    )
+                }
+                {
+                    invites?.map((invite,i)=>
+                        <View key={i} style={{flexDirection:"row", paddingHorizontal:20, justifyContent:"space-between", marginVertical:5}}>
+
+                    <Text >{invite.clientId.firstName} {invite.clientId.lastName} </Text>
+                            <TouchableOpacity onPress={()=>acceptInvite(invite.clientId._id)}><Text style={{padding:5, backgroundColor:"lightgreen"}}>accept</Text></TouchableOpacity>
                         </View>
                     )
                 }

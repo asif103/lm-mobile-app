@@ -40,7 +40,9 @@ const LoginScreen = ({ navigation }) => {
                 if (response.data.status === 'success') {
                     const user = response.data.data.user;
                     storeData(user, '@activeUser');
-                    console.log('LOGIN SUCCESS', user)
+                    storeData(response.data.token, '@activeToken');
+                    console.log('LOGIN SUCCESS', response.data.token)
+                    navigation.navigate('DrawerScreen')
                 }
             }).catch(err => {
                 console.log('error', err)
