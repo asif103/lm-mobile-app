@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const loginValidationSchema = yup.object().shape({
     userName: yup
         .string()
-        .required('Email Address is Required'),
+        .required('Username is Required'),
     password: yup
         .string()
         .min(8, ({ min }) => `Password must be at least ${min} characters`)
@@ -71,7 +71,7 @@ const LoginScreen = ({ navigation }) => {
                     <>
                         <TextInput
                             name="userName"
-                            placeholder="Email Address"
+                            placeholder="Username"
                             style={(errors.userName && touched.userName) ? styles.errorInput : styles.input}
                             onChangeText={handleChange('userName')}
                             onBlur={handleBlur('userName')}

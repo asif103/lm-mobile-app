@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import HeaderComponent from "../components/HeaderComponent";
 import userImage from "../assets/carer.png";
+import notificationImage from '../assets/565422.png'
 import axios from "axios";
 import {BASE_URL} from "../config/config";
 import {logCurrentStorage, storeData} from "../config/utils";
@@ -60,7 +61,7 @@ const NotificationScreen = ({navigation}) => {
             }
         })
             .then(response => {
-                console.log("daaaaataaaaaaaaa",response.data.data[0].clientId.firstName)
+                // console.log("daaaaataaaaaaaaa",response.data.data[0].clientId.firstName)
                 setInvites(response.data.data)
                 /*if (response.data.status === 'success') {
                     const user = response.data.data.user;
@@ -73,7 +74,8 @@ const NotificationScreen = ({navigation}) => {
 
     const acceptInvite =(providerId) =>{
     console.log(providerId)
-        axios.post(`${BASE_URL}/client/acceptInvite/${providerId}`, {},
+    console.log(activeToken)
+        /*axios.post(`${BASE_URL}/client/acceptInvite/${providerId}`, {},
         {
             headers: {
                 'Authorization': `Bearer ${activeToken}`
@@ -82,13 +84,24 @@ const NotificationScreen = ({navigation}) => {
             .then(response => {
                 console.log("daaaaa",response.data)
                 // setInvites(response.data.data)
-                /*if (response.data.status === 'success') {
+                /!*if (response.data.status === 'success') {
                     const user = response.data.data.user;
                     storeData(user, '@activeUser');
-                }*/
+                }*!/
             }).catch(err => {
             console.log('error', err)
-        });
+        });*/
+        let myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${activeToken}`);
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+        fetch(`${BASE_URL}/client/acceptInvite/${providerId}`, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -99,7 +112,7 @@ const NotificationScreen = ({navigation}) => {
             <ScrollView>
                 {/*<Text>asdasdas{JSON.stringify(activeToken)}</Text>*/}
 
-                {
+                {/*{
                     notificationData?.map((data, i) =>
 
                         <View style={{
@@ -126,16 +139,47 @@ const NotificationScreen = ({navigation}) => {
                             </View>
                         </View>
                     )
-                }
+                }*/}
                 {
-                    invites?.map((invite,i)=>
-                        <View key={i} style={{flexDirection:"row", paddingHorizontal:20, justifyContent:"space-between", marginVertical:5}}>
+                    invites?.map((invite, i) =>
 
-                    <Text >{invite.clientId.firstName} {invite.clientId.lastName} </Text>
-                            <TouchableOpacity onPress={()=>acceptInvite(invite.clientId._id)}><Text style={{padding:5, backgroundColor:"lightgreen"}}>accept</Text></TouchableOpacity>
+                        <View style={{
+                            width: Dimensions.get("window").width,
+                            paddingHorizontal: 30,
+                            paddingVertical: 10,
+                            backgroundColor: "#F5F5F5",
+                            borderWidth: 1,
+                            borderColor: "#ffffff",
+                            flexDirection: "row",
+                            alignItems: "center"
+                        }} key={i}>
+                            <Image source={notificationImage} style={{height: 35, width: 35, marginRight: 10}}/>
+                            <View style={{width:'70%'}}>
+                                <Text style={{fontSize: 16, fontWeight: "600", color: "#2D2D2D"}}>{invite.providerId?.firstName} {invite.providerId?.lastName}</Text>
+                                <Text style={{color: "#505050"}}>A new request has been received</Text>
+                            </View>
+                            <View style={{width:'20%', alignItems:"flex-end", }}>
+                                <TouchableOpacity onPress={()=>acceptInvite(invite._id)}>
+
+                                <Text style={{ fontWeight: "500", color: "#2D2D2D", padding:5, backgroundColor:"lightgreen"}}>accept</Text>
+                                </TouchableOpacity>
+                                {/*{
+                                    !data.read &&
+                                    <View style={{height:10, width:10, backgroundColor:"#468189", borderRadius:10, marginTop:10}}/>
+                                }*/}
+                            </View>
                         </View>
                     )
                 }
+                {/*{
+                    invites?.map((invite,i)=>
+                        <View key={i} style={{flexDirection:"row", paddingHorizontal:20, justifyContent:"space-between", marginVertical:5}}>
+
+                    <Text >{invite.providerId?.firstName} {invite.providerId?.lastName} </Text>
+                            <TouchableOpacity onPress={()=>acceptInvite(invite._id)}><Text style={{padding:5, backgroundColor:"lightgreen"}}>accept</Text></TouchableOpacity>
+                        </View>
+                    )
+                }*/}
 
                 <View style={styles.emptySpace}/>
             </ScrollView>
