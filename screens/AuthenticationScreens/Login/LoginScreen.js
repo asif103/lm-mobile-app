@@ -61,7 +61,7 @@ const LoginScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
 
-            <Text style={styles.title}>Sign in to your account </Text>
+            <Text style={styles.title}>Sign in to your account</Text>
             <Formik
                 validationSchema={loginValidationSchema}
                 initialValues={{ userName: '', password: '' }}
